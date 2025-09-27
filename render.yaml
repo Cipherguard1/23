@@ -1,1 +1,12 @@
+services:
+  - type: web
+    name: telegram-forwarder
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
 
