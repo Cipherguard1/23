@@ -4,6 +4,8 @@ import threading
 from flask import Flask
 from telethon import TelegramClient, events
 from telethon.tl.types import KeyboardButtonUrl
+from telethon.sessions import StringSession
+
 
 # --- Telegram API credentials ---
 API_ID = 24878661
