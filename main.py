@@ -9,6 +9,9 @@ from telethon.tl.types import KeyboardButtonUrl
 API_ID = 24878661
 API_HASH = "7fd279b83c40a0d4228b89978685638a"
 
+# --- Use session string instead of file ---
+SESSION_STRING = "wQQddWAvd90uN+mfpX1+1/hPW5PZQWMtCl67G+kBd+yOqXdzVd9DAeulJLtfP8aHf52g39e5h5Y+7djtitP4rw=="
+
 # --- Channel IDs ---
 SOURCE_CHANNEL = "@goldmasterclub"
 TARGET_CHANNEL = "@forthgoldtrader"
@@ -70,12 +73,14 @@ def replace_button_links(reply_markup):
 
 # --- Bot logic ---
 async def run_bot():
-    client = TelegramClient("user_session", API_ID, API_HASH)
+    # Use session string here
+    client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
 
     @client.on(events.NewMessage(chats=SOURCE_CHANNEL))
     async def handler(event):
         try:
             message = event.message
+            print(f"📥 New message received: {message.id}")  # Debug line
             reply_markup = replace_button_links(message.reply_markup) if message.reply_markup else None
             text_content = clean_text(message.text or message.message or message.raw_text)
 
